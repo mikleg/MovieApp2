@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.mikleg.popularmovies.utils.JsonUtils;
 import com.mikleg.popularmovies.utils.NetworkUtils;
 
 import java.net.URL;
@@ -75,8 +76,8 @@ public class MainActivity extends AppCompatActivity
 
         //        String[] simpleJsonWeatherData = OpenWeatherJsonUtils
          //               .getSimpleWeatherStringsFromJson(MainActivity.this, jsonWeatherResponse);
-                String[] simpleJsonMovieData = {"",""};
-                simpleJsonMovieData[0] = jsonMovieResponse;
+                String[] simpleJsonMovieData = JsonUtils.getSimpleMoviesFromJson(MainActivity.this, jsonMovieResponse );
+                //simpleJsonMovieData[0] = jsonMovieResponse;
                 return simpleJsonMovieData;
 
             } catch (Exception e) {
