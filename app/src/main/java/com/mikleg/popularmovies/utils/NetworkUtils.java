@@ -19,7 +19,10 @@ public class NetworkUtils {
     final static String key = "eba056d2c85537bb0f952351ce33b7a8";
     final static String sort = "popular";
 
-    public static URL buildUrl() {
+    public static URL buildUrl(String... params) {
+        //    if (params.length == 0) {
+        //        return null;
+        //    }
         Uri.Builder builtUri = new Uri.Builder();
         builtUri.scheme("https")
                 .authority("api.themoviedb.org")
@@ -44,12 +47,14 @@ public class NetworkUtils {
      */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        System.out.println("stage1" );
         try {
             InputStream in = urlConnection.getInputStream();
-
+            System.out.println("stage2" );
             Scanner scanner = new Scanner(in);
+            System.out.println("stage3" );
             scanner.useDelimiter("\\A");
-
+            System.out.println("stage4" );
             boolean hasInput = scanner.hasNext();
             if (hasInput) {
                 return scanner.next();

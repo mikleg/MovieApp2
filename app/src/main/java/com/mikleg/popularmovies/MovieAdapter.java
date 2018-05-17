@@ -1,12 +1,17 @@
 package com.mikleg.popularmovies;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.mikleg.popularmovies.utils.NetworkUtils;
+
+import java.net.URL;
 
 /**
  * Created by mikle on 5/15/2018.
@@ -90,6 +95,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.NumberViewHo
             mOnClickListener.onListItemClick(clickedPosition);
         }
     }
+
+
 }
 
 

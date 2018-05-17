@@ -1,5 +1,6 @@
 package com.mikleg.popularmovies;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,22 +35,7 @@ public class MainActivity extends AppCompatActivity
         mNumbersList.setHasFixedSize(true);
         mAdapter = new MovieAdapter(NUM_LIST_ITEMS, this);
         mNumbersList.setAdapter(mAdapter);
-        URL moviesRequestUrl = NetworkUtils.buildUrl();
-        System.out.println("moviesRequestUrl=" + moviesRequestUrl);
-        try {
-            String jsonMoviesResponse = NetworkUtils
-                    .getResponseFromHttpUrl(moviesRequestUrl);
-            System.out.println("Response=" + jsonMoviesResponse);
-            //TODO ADD premission
-          //  String[] simpleJsonWeatherData = OpenWeatherJsonUtils
-          //          .getSimpleWeatherStringsFromJson(MainActivity.this, jsonWeatherResponse);
 
-          //  return simpleJsonWeatherData;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-           // return null;
-        }
     }
 
     @Override
@@ -58,10 +44,54 @@ public class MainActivity extends AppCompatActivity
         if (mToast != null) {
             mToast.cancel();
         }
-
+        loadMoviesData();
         String toastMessage = "Item #" + clickedItemIndex + " clicked.";
         mToast = Toast.makeText(this, toastMessage, Toast.LENGTH_LONG);
         mToast.show();
+    }
+
+    private void loadMoviesData() {
+
+        new FetchMoviesTask().execute("");
+    }
+
+    public class FetchMoviesTask extends AsyncTask<String, Void, String[]> {
+
+        @Override
+
+        protected String[] doInBackground(String... params) {
+
+
+            //    if (params.length == 0) {
+            //        return null;
+            //    }
+
+
+            URL moviesRequestUrl = NetworkUtils.buildUrl(params);
+
+            try {
+                String jsonMovieResponse = NetworkUtils
+                        .getResponseFromHttpUrl(moviesRequestUrl);
+
+        //        String[] simpleJsonWeatherData = OpenWeatherJsonUtils
+         //               .getSimpleWeatherStringsFromJson(MainActivity.this, jsonWeatherResponse);
+                String[] simpleJsonMovieData = {"",""};
+                simpleJsonMovieData[0] = jsonMovieResponse;
+                return simpleJsonMovieData;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String[] moviesData) {
+            if (moviesData != null) {
+
+                System.out.println("Response=" + moviesData[0]);
+            }
+        }
     }
 }
 
