@@ -6,17 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.ImageView;
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
+import com.squareup.picasso.Picasso;
+
+public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHolder> {
 
     private String[] mData ;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
+    private Context mContext;
   //  private String[] mMoviesData;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, String[] data) {
+    MyMoviesAdapter(Context context, String[] data) {
         this.mInflater = LayoutInflater.from(context);
+        this.mContext = context;
+
         //this.mData = data;
     }
 
@@ -32,6 +38,11 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         String data = mData[position];
         holder.myTextView.setText(data);
+        //debug
+        System.out.println(mData[position]);
+        Picasso.with(this.mContext).load(mData[position]).into(holder.myImageView);
+
+
     }
 
     // total number of cells
@@ -49,10 +60,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
+        ImageView myImageView;
 
         ViewHolder(View itemView) {
             super(itemView);
             myTextView = (TextView) itemView.findViewById(R.id.info_text);
+            myImageView = (ImageView) itemView.findViewById(R.id.image_tv);
             itemView.setOnClickListener(this);
         }
 

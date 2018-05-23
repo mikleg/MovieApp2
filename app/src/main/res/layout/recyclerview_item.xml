@@ -5,7 +5,14 @@
     android:padding="5dp"
     android:layout_width="60dp"
     android:layout_height="100dp">
-
+    <ImageView
+        android:id="@+id/image_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="picture_description"
+        android:scaleType="centerCrop" />
+     <!--TODO remove text-->
     <TextView
         android:id="@+id/info_text"
         android:layout_width="match_parent"

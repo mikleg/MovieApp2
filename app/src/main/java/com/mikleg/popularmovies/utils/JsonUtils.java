@@ -72,8 +72,10 @@ public class JsonUtils {
           String poster = movieInfo.getString(POSTER);
           String rating = movieInfo.getString(RATING);
           String id = movieInfo.getString(ID);
+          String image = movieInfo.getString(POSTER);
 
-            parsedMoviesData[i] = title +" "+pop+" "+rating;
+           // parsedMoviesData[i] = title +" "+pop+" "+rating;
+          parsedMoviesData[i] = "http://image.tmdb.org/t/p/w185" + image;
         }
 
         return parsedMoviesData;
