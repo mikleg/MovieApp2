@@ -19,7 +19,7 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
   //  private String[] mMoviesData;
 
     // data is passed into the constructor
-    MyMoviesAdapter(Context context, String[] data) {
+    MyMoviesAdapter(Context context) {
         this.mInflater = LayoutInflater.from(context);
         this.mContext = context;
 
