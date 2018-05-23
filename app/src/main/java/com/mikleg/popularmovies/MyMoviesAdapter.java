@@ -36,8 +36,8 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
     // binds the data to the textview in each cell
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String data = mData[position];
-        holder.myTextView.setText(data);
+       // String data = mData[position];
+       // holder.myTextView.setText(data);
         //debug
         System.out.println(mData[position]);
         Picasso.with(this.mContext).load(mData[position]).into(holder.myImageView);
@@ -59,12 +59,12 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+      //  TextView myTextView;
         ImageView myImageView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = (TextView) itemView.findViewById(R.id.info_text);
+        //    myTextView = (TextView) itemView.findViewById(R.id.info_text);
             myImageView = (ImageView) itemView.findViewById(R.id.image_tv);
             itemView.setOnClickListener(this);
         }
