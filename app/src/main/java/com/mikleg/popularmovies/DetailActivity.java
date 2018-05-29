@@ -33,18 +33,18 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-     //   ImageView ingredientsIv = findViewById(R.id.image_iv);
-        mDescriptionTextView = (TextView) findViewById(R.id.description_tv);
+       // ImageView imageView = findViewById(R.id.image_iv);
+      //  mDescriptionTextView = (TextView) findViewById(R.id.description_tv);
 
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
         }
 
-        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+/*        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             mSzString = intent.getStringExtra(Intent.EXTRA_TEXT);
             mDescriptionTextView.setText(mSzString);
-        }
+        }*/
         Gson gson = new Gson();
         Movie movieData = gson.fromJson(getIntent().getStringExtra("jsonText"), Movie.class);
 
@@ -62,7 +62,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Movie s) {
-      //  imageView = (ImageView) findViewById(R.id.image_iv);
+        imageView = (ImageView) findViewById(R.id.image_iv);
+        Picasso.with(this).load(s.getImage()).into(imageView);
         mDescriptionTextView = (TextView) findViewById(R.id.description_tv);
 /*        mOriginTextView = (TextView) findViewById(R.id.origin_tv);
         mOtherNamesTextView = (TextView) findViewById(R.id.also_known_tv);
