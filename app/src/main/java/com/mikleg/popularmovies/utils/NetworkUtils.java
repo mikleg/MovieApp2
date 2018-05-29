@@ -50,11 +50,11 @@ public class NetworkUtils {
         System.out.println("stage1" );
         try {
             InputStream in = urlConnection.getInputStream();
-            System.out.println("stage2" );
+           // System.out.println("stage2" );
             Scanner scanner = new Scanner(in);
-            System.out.println("stage3" );
+           // System.out.println("stage3" );
             scanner.useDelimiter("\\A");
-            System.out.println("stage4" );
+          //  System.out.println("stage4" );
             boolean hasInput = scanner.hasNext();
             if (hasInput) {
                 return scanner.next();

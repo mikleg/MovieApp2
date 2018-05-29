@@ -3,6 +3,9 @@ package com.mikleg.popularmovies.utils;
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.mikleg.popularmovies.model.Movie;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +59,8 @@ public class JsonUtils {
 
         parsedMoviesData = new String[moviesArray.length()];
 
-        long localDate = System.currentTimeMillis();
+
+      //  long localDate = System.currentTimeMillis();
      //   long utcDate = SunshineDateUtils.getUTCDateFromLocal(localDate);
      //   long startDay = SunshineDateUtils.normalizeDate(utcDate);
 
@@ -66,16 +70,28 @@ public class JsonUtils {
             JSONObject movieInfo = moviesArray.getJSONObject(i);
 
 
-          String title  = movieInfo.getString(TITLE);
+      /*    String title  = movieInfo.getString(TITLE);
           String description  = movieInfo.getString(DESCRIPTION);
           String pop = movieInfo.getString(POP);
           String poster = movieInfo.getString(POSTER);
           String rating = movieInfo.getString(RATING);
           String id = movieInfo.getString(ID);
-          String image = movieInfo.getString(POSTER);
+          String image = movieInfo.getString(POSTER);*/
+
+
+          Movie el = new Movie(movieInfo.getString(TITLE));
+          el.setDescription(movieInfo.getString(DESCRIPTION));
+          el.setPop(movieInfo.getString(POP));
+          el.setImage("http://image.tmdb.org/t/p/w185" + movieInfo.getString(POSTER));
+          el.setRating(movieInfo.getString(RATING));
+          el.setRating(movieInfo.getString(ID));
+
+
 
            // parsedMoviesData[i] = title +" "+pop+" "+rating;
-          parsedMoviesData[i] = "http://image.tmdb.org/t/p/w185" + image;
+         // parsedMoviesData[i] = "http://image.tmdb.org/t/p/w185" + image;
+            Gson gson = new Gson();
+            parsedMoviesData[i] = gson.toJson(el);
         }
 
         return parsedMoviesData;

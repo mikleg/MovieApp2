@@ -1,5 +1,6 @@
 package com.mikleg.popularmovies;
 
+import android.content.Intent;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -11,6 +12,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
+import com.mikleg.popularmovies.model.Movie;
 import com.mikleg.popularmovies.utils.JsonUtils;
 import com.mikleg.popularmovies.utils.NetworkUtils;
 
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
     @Override
     public void onItemClick(View view, int position) {
         Log.i("TAG", "You clicked number " + mAdapter.getItem(position) + ", which is at cell position " + position);
-
+        launchDetailActivity(position);
     }
 
     @Override
@@ -98,6 +101,13 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
 
     }
 
+
+
+
+
+
+
+
     @Override
     public void onLoadFinished(Loader<String[]> loader, String[] data) {
         int debug = 1;
@@ -112,6 +122,15 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
     public void onLoaderReset(Loader<String[]> loader) {
 
     }
+
+    private void launchDetailActivity(int position) {
+
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("jsonText", mAdapter.getItem(position));
+        intent.putExtra(DetailActivity.EXTRA_POSITION, position);
+        startActivity(intent);
+    }
+
 
 }
 

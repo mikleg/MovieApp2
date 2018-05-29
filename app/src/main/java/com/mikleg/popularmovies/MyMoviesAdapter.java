@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.mikleg.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
 
 public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHolder> {
@@ -39,8 +41,10 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
        // String data = mData[position];
        // holder.myTextView.setText(data);
         //debug
+        Gson gson = new Gson();
+        Movie elem = gson.fromJson(mData[position], Movie.class);
         System.out.println(mData[position]);
-        Picasso.with(this.mContext).load(mData[position]).into(holder.myImageView);
+        Picasso.with(this.mContext).load(elem.getImage()).into(holder.myImageView);
 
 
     }
