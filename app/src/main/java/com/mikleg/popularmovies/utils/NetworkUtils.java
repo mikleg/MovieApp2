@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class NetworkUtils {
 
     final static String API = "api_key";
-    final static String key = "eba056d2c85537bb0f952351ce33b7a8";
+    final static String key = "";
     final static String sort = "popular";
 
     public static URL buildUrl(String... params) {
