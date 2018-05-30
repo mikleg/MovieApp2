@@ -1,11 +1,13 @@
 package com.mikleg.popularmovies;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int loaderId = LOADER_ID;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //screen width
@@ -51,9 +52,10 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         mAdapter = new MyMoviesAdapter(this);
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+       // setupSharedPreferences();
         LoaderCallbacks<String[]> callback = MainActivity.this;
-        Bundle bundleForLoader = null;
-        getSupportLoaderManager().initLoader(loaderId, bundleForLoader, callback);
+        final Bundle bundleForLoader = null;
+        getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
     }
 
     @Override
@@ -155,6 +157,13 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         return super.onOptionsItemSelected(item);
     }
 
+/*    private void setupSharedPreferences() {
+        // Get all of the values from shared preferences to set it up
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        NetworkUtils.setOrder(sharedPreferences.getBoolean("sort_order", true));
+
+    }*/
 
 }
 
