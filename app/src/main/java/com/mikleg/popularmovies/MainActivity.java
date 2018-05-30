@@ -10,6 +10,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.gson.Gson;
@@ -129,6 +132,27 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         intent.putExtra("jsonText", mAdapter.getItem(position));
         intent.putExtra(DetailActivity.EXTRA_POSITION, position);
         startActivity(intent);
+    }
+
+    /**
+     * Methods for setting up the menu
+     **/
+      @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+          MenuInflater inflater = getMenuInflater();
+          inflater.inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+            startActivity(startSettingsActivity);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
