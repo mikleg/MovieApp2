@@ -11,4 +11,19 @@
     <string name="detail_error_message">Movie data not available</string>
     <!-- Options -->
     <string name="menu_settings">Settings</string>
+
+    <string name="pref_sort_label">Sort order</string>
+
+    <!-- Label for preference -->
+    <string name="popularity_sort_label">Popularity</string>
+    <string name="rating_sort_label">Rating</string>
+    <string name="date_sort_label">Date</string>
+
+    <!-- Key name for color preference in SharedPreferences -->
+    <string name="pref_sort_key" translatable="false">order</string>
+
+    <!-- Value in SharedPreferences  -->
+    <string name="popularity_sort_value" translatable="false">popularity.desc</string>
+    <string name="rating_sort_value" translatable="false">vote_average.desc</string>
+    <string name="date_sort_value" translatable="false">release_date.desc</string>
 </resources>

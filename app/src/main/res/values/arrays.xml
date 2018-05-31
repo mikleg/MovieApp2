@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Label ordering must match values -->
+    <array name="pref_sort_order_labels">
+        <item>@string/popularity_sort_label</item>
+        <item>@string/rating_sort_label</item>
+        <item>@string/date_sort_label</item>
+    </array>
+
+    <array name="pref_sort_order_values">
+        <item>@string/popularity_sort_value</item>
+        <item>@string/rating_sort_value</item>
+        <item>@string/date_sort_value</item>
+    </array>
+</resources>
