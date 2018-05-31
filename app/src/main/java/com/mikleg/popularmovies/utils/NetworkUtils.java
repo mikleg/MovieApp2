@@ -15,12 +15,12 @@ import java.util.Scanner;
 
 public class NetworkUtils {
 
-    final static String API = "api_key";
-    private static ApiUtils key = new ApiUtils();
-    //final static String key =
-    private final static String sort = "popular";
 
-    public static URL buildUrl(String... params) {
+    private static String key = ApiUtils.getApiKey();
+  //  private static String sort = ApiConstants.getPopularity();
+    private static String dSort = ApiConstants.getdPopularity();
+
+/*    public static URL buildUrl2(String... params) {
         //    if (params.length == 0) {
         //        return null;
         //    }
@@ -30,7 +30,32 @@ public class NetworkUtils {
                 .appendPath("3")
                 .appendPath("movie")
                 .appendPath(sort)
-                .appendQueryParameter("api_key", key.getApiKey())
+                .appendQueryParameter("api_key", key)
+                .build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }*/
+
+    public static URL buildUrl(String... params) {
+        //    if (params.length == 0) {
+        //        return null;
+        //    }
+        Uri.Builder builtUri = new Uri.Builder();
+        builtUri.scheme("https")
+                .authority("api.themoviedb.org")
+                .appendPath("3")
+                .appendPath("discover")
+                .appendPath("movie")
+                //.appendPath(sort)
+                .appendQueryParameter("api_key", key)
+                .appendQueryParameter("sort_by", dSort)
                 .build();
 
         URL url = null;
@@ -65,5 +90,9 @@ public class NetworkUtils {
         } finally {
             urlConnection.disconnect();
         }
+    }
+
+    public static void setSort(String sort) {
+        NetworkUtils.dSort = sort;
     }
 }

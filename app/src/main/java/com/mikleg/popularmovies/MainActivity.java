@@ -19,6 +19,7 @@ import android.view.View;
 
 import com.google.gson.Gson;
 import com.mikleg.popularmovies.model.Movie;
+import com.mikleg.popularmovies.utils.ApiConstants;
 import com.mikleg.popularmovies.utils.JsonUtils;
 import com.mikleg.popularmovies.utils.NetworkUtils;
 
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         mAdapter = new MyMoviesAdapter(this);
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
-       // setupSharedPreferences();
+        setupSharedPreferences();
         LoaderCallbacks<String[]> callback = MainActivity.this;
         final Bundle bundleForLoader = null;
         getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
@@ -157,13 +158,16 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         return super.onOptionsItemSelected(item);
     }
 
-/*    private void setupSharedPreferences() {
+    private void setupSharedPreferences() {
         // Get all of the values from shared preferences to set it up
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        NetworkUtils.setOrder(sharedPreferences.getBoolean("sort_order", true));
+        boolean sort = sharedPreferences.getBoolean("sort_order", true);
+        if (sort) NetworkUtils.setSort(ApiConstants.getdRating());
+            else NetworkUtils.setSort(ApiConstants.getdPopularity());
 
-    }*/
+
+    }
 
 }
 
