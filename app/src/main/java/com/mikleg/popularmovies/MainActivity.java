@@ -26,11 +26,13 @@ import com.mikleg.popularmovies.utils.NetworkUtils;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.ItemClickListener
-    , LoaderCallbacks<String[]>{
+    , LoaderCallbacks<String[]>, SharedPreferences.OnSharedPreferenceChangeListener{
 
     private MyMoviesAdapter mAdapter;
     private static final int LOADER_ID = 10;
     private RecyclerView mRecyclerView;
+    private static boolean PREFERENCES_HAVE_BEEN_UPDATED = false;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         float width = dm.widthPixels/dm.xdpi;
-        Log.d("debug","Screen width inches : " + dm.widthPixels/dm.xdpi + " Screen height inches : " + dm.heightPixels/dm.ydpi);
+        Log.d(TAG,"Screen width inches : " + dm.widthPixels/dm.xdpi + " Screen height inches : " + dm.heightPixels/dm.ydpi);
         int numberOfColumns = 2;
         if (width > 3 && width <= 4.5) numberOfColumns = 3;
         if (width > 4.5 && width <= 6) numberOfColumns = 4;
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
 
     @Override
     public void onLoadFinished(Loader<String[]> loader, String[] data) {
-        int debug = 1;
+     //   int debug = 1;
         mAdapter.setMoviesData(data);
         if (null != data) {
             //TODo remove that
@@ -149,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
@@ -162,13 +165,48 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         // Get all of the values from shared preferences to set it up
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean sort = sharedPreferences.getBoolean("sort_order", true);
-        if (sort) NetworkUtils.setSort(ApiConstants.getdRating());
+        if (sharedPreferences.getBoolean("sort_order", true)) NetworkUtils.setSort(ApiConstants.getdRating());
             else NetworkUtils.setSort(ApiConstants.getdPopularity());
-
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
     }
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
+        if (key.equals("sort_order")){
+            if (sharedPreferences.getBoolean(key,false)) NetworkUtils.setSort(ApiConstants.getdRating());
+            else NetworkUtils.setSort(ApiConstants.getdPopularity());
+            PREFERENCES_HAVE_BEEN_UPDATED = true;
+            //////
+         //   LoaderCallbacks<String[]> callback = MainActivity.this;
+        //    final Bundle bundleForLoader = null;
+          //  getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
+           // this.onCreate(new Bundle());
+
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        /*
+         * If the preferences  have changed since the user was last in
+         * MainActivity, perform another query and set the flag to false.
+
+         */
+        if (PREFERENCES_HAVE_BEEN_UPDATED) {
+            Log.d(TAG, "onStart: preferences were updated");
+            getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+            PREFERENCES_HAVE_BEEN_UPDATED = false;
+        }
+    }
 }
 
 

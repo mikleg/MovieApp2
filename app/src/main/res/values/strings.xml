@@ -9,5 +9,6 @@
 
     <!-- Error messages-->
     <string name="detail_error_message">Movie data not available</string>
-    <string name="menu_settings">settings</string>
+    <!-- Options -->
+    <string name="menu_settings">Settings</string>
 </resources>
