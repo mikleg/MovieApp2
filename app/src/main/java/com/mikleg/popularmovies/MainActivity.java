@@ -165,9 +165,11 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         // Get all of the values from shared preferences to set it up
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPreferences.getBoolean("sort_order", true)) NetworkUtils.setSort(ApiConstants.getdRating());
-            else NetworkUtils.setSort(ApiConstants.getdPopularity());
-        this.setOrder(sharedPreferences);
+        System.out.println("debug3");
+        if (sharedPreferences.getBoolean("sort_order", true)) {NetworkUtils.setSort(ApiConstants.getdRating());}
+            else {NetworkUtils.setSort(ApiConstants.getdPopularity());}
+
+        setOrder(sharedPreferences);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
     }
@@ -177,26 +179,23 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         if (key.equals("sort_order")){
             if (sharedPreferences.getBoolean(key,false)) NetworkUtils.setSort(ApiConstants.getdRating());
             else NetworkUtils.setSort(ApiConstants.getdPopularity());
+        }
 
+
+            System.out.println("debug key = " + key + " pref sort key=" + getString(R.string.pref_sort_key));
             if (key.equals(getString(R.string.pref_sort_key))){
- //               NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
- //                       getString(R.string.popularity_sort_value)));
+            System.out.println("debug2");
                 this.setOrder(sharedPreferences);
 
             }
 
-
-
             PREFERENCES_HAVE_BEEN_UPDATED = true;
-            //////
-         //   LoaderCallbacks<String[]> callback = MainActivity.this;
-        //    final Bundle bundleForLoader = null;
-          //  getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
-           // this.onCreate(new Bundle());
 
-        }
+
+
     }
     private void setOrder(SharedPreferences sharedPreferences){
+        System.out.println("debug key = " + getString(R.string.pref_sort_key) + " pref sort key=" + getString(R.string.popularity_sort_value));
         NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
                 getString(R.string.popularity_sort_value)));
 
@@ -225,6 +224,20 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
             PREFERENCES_HAVE_BEEN_UPDATED = false;
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+
 }
 
 
