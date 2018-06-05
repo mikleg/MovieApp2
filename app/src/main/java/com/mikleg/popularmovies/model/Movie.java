@@ -10,7 +10,7 @@ public class Movie {
     private String pop = null;
  //   private String poster;
     private String rating = null;
-    private String image = null;
+    private String image = "";
     private int votes = 0;
     private String origLang = null;
     private String genres = null;
@@ -19,6 +19,7 @@ public class Movie {
     private boolean adult = false;
     private String description = null;
     private String date = null;
+    private String id = null;
 
     public Movie(String title) {
         this.title = title;
@@ -119,4 +120,8 @@ public class Movie {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getId() {        return id;    }
+
+    public void setId(String id) {        this.id = id;    }
 }

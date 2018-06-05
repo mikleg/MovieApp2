@@ -11,6 +11,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.System.out;
 
 /**
  * Created by mikle on 5/17/2018.
@@ -34,8 +38,8 @@ public class JsonUtils {
 
         final String OWM_MESSAGE_CODE = "cod"; //TODO -- check the same codes from OPENMDB
 
-        /* String array to hold each day's weather String */
-        String[] parsedMoviesData = null;
+        List<String> parsedMoviesData = new ArrayList<>();
+        //String[] parsedMoviesData = null;
 
         JSONObject moviesJson = new JSONObject(moviesJsonStr);
 
@@ -54,22 +58,20 @@ public class JsonUtils {
                     return null;
             }
         }
-        JSONArray deb = moviesJson.names();
+       // JSONArray deb = moviesJson.names();
         JSONArray moviesArray = moviesJson.getJSONArray(ARRAY);
 
-        parsedMoviesData = new String[moviesArray.length()];
+
+       // parsedMoviesData = new String[moviesArray.length()];
 
 
       //  long localDate = System.currentTimeMillis();
      //   long utcDate = SunshineDateUtils.getUTCDateFromLocal(localDate);
      //   long startDay = SunshineDateUtils.normalizeDate(utcDate);
+        int i = 0;
+        while (i < moviesArray.length()) {
 
-        for (int i = 0; i < moviesArray.length(); i++) {
-
-            /* Get the JSON object representing the day */
             JSONObject movieInfo = moviesArray.getJSONObject(i);
-
-
       /*    String title  = movieInfo.getString(TITLE);
           String description  = movieInfo.getString(DESCRIPTION);
           String pop = movieInfo.getString(POP);
@@ -78,23 +80,23 @@ public class JsonUtils {
           String id = movieInfo.getString(ID);
           String image = movieInfo.getString(POSTER);*/
 
+         if ( !movieInfo.getString(POSTER).equals("null")) {
 
-          Movie el = new Movie(movieInfo.getString(TITLE));
-          el.setDescription(movieInfo.getString(DESCRIPTION));
-          el.setPop(movieInfo.getString(POP));
-          el.setImage("http://image.tmdb.org/t/p/w185" + movieInfo.getString(POSTER));
-          el.setRating(movieInfo.getString(RATING));
-          el.setRating(movieInfo.getString(ID));
+             Movie el = new Movie(movieInfo.getString(TITLE));
+             el.setDescription(movieInfo.getString(DESCRIPTION));
+             el.setPop(movieInfo.getString(POP));
+             el.setImage("http://image.tmdb.org/t/p/w185" + movieInfo.getString(POSTER));
+             el.setRating(movieInfo.getString(RATING));
+             el.setId(movieInfo.getString(ID));
+             Gson gson = new Gson();
+             parsedMoviesData.add(gson.toJson(el));
 
+         }
+         i++;
 
-
-           // parsedMoviesData[i] = title +" "+pop+" "+rating;
-         // parsedMoviesData[i] = "http://image.tmdb.org/t/p/w185" + image;
-            Gson gson = new Gson();
-            parsedMoviesData[i] = gson.toJson(el);
         }
 
-        return parsedMoviesData;
+        return parsedMoviesData.toArray(new String[parsedMoviesData.size()]);
     }
 
 
