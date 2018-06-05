@@ -27,7 +27,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.ItemClickListener
     , LoaderCallbacks<String[]>, SharedPreferences.OnSharedPreferenceChangeListener{
-
+//TODO check content for completeness
     private MyMoviesAdapter mAdapter;
     private static final int LOADER_ID = 10;
     private RecyclerView mRecyclerView;
@@ -167,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if (sharedPreferences.getBoolean("sort_order", true)) NetworkUtils.setSort(ApiConstants.getdRating());
             else NetworkUtils.setSort(ApiConstants.getdPopularity());
+        this.setOrder(sharedPreferences);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
     }
@@ -176,6 +177,16 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         if (key.equals("sort_order")){
             if (sharedPreferences.getBoolean(key,false)) NetworkUtils.setSort(ApiConstants.getdRating());
             else NetworkUtils.setSort(ApiConstants.getdPopularity());
+
+            if (key.equals(getString(R.string.pref_sort_key))){
+ //               NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
+ //                       getString(R.string.popularity_sort_value)));
+                this.setOrder(sharedPreferences);
+
+            }
+
+
+
             PREFERENCES_HAVE_BEEN_UPDATED = true;
             //////
          //   LoaderCallbacks<String[]> callback = MainActivity.this;
@@ -185,6 +196,13 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
 
         }
     }
+    private void setOrder(SharedPreferences sharedPreferences){
+        NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
+                getString(R.string.popularity_sort_value)));
+
+
+    }
+
 
     @Override
     protected void onDestroy() {
