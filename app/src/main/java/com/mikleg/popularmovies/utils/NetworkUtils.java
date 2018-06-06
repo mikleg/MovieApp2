@@ -1,6 +1,9 @@
 package com.mikleg.popularmovies.utils;
 
+import android.content.Context;
 import android.net.Uri;
+
+import com.mikleg.popularmovies.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +22,7 @@ public class NetworkUtils {
     private static String key = ApiUtils.getApiKey();
   //  private static String sort = ApiConstants.getPopularity();
     private static String dSort = ApiConstants.getdPopularity();
-
+    private static String adult = "false";
     public static URL buildUrl(String... params) {
         String page = "1";
         // the page number
@@ -32,12 +35,14 @@ public class NetworkUtils {
                 .appendPath("3")
                 .appendPath("discover")
                 .appendPath("movie")
-                //.appendPath(sort)
                 .appendQueryParameter("api_key", key)
                 .appendQueryParameter("sort_by", dSort)
-                .appendQueryParameter("page", params[0])
+                .appendQueryParameter("page",page)
+                .appendQueryParameter("include_adult",adult)
+                .appendQueryParameter("primary_release_date.gte","2017")
+                .appendQueryParameter("primary_release_date.lte","2018")
                 .build();
-
+        System.out.println(builtUri.toString());
         URL url = null;
         try {
             url = new URL(builtUri.toString());
@@ -53,14 +58,10 @@ public class NetworkUtils {
      */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-       // System.out.println("debug stage1" );
         try {
             InputStream in = urlConnection.getInputStream();
-           // System.out.println("stage2" );
             Scanner scanner = new Scanner(in);
-           // System.out.println("stage3" );
             scanner.useDelimiter("\\A");
-          //  System.out.println("stage4" );
             boolean hasInput = scanner.hasNext();
             if (hasInput) {
                 return scanner.next();
@@ -74,5 +75,8 @@ public class NetworkUtils {
 
     public static void setSort(String sort) {
         NetworkUtils.dSort = sort;
+    }
+    public static void setAdult(String adult) {
+        NetworkUtils.adult = adult;
     }
 }

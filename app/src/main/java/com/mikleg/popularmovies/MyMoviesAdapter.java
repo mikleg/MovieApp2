@@ -19,7 +19,7 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context mContext;
-    private final int DELTA = 3; //min delta when we call an additional data
+   // private final int DELTA = 3; //min delta when we call an additional data
   //  private String[] mMoviesData;
 
     // data is passed into the constructor
@@ -40,18 +40,15 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
     // binds the data to the textview in each cell
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-       // String data = mData[position];
-       // holder.myTextView.setText(data);
-        //debug
+
         Gson gson = new Gson();
         Movie elem = gson.fromJson(mData[position], Movie.class);
         System.out.println(mData[position]);
         Picasso.with(this.mContext).load(elem.getImage()).into(holder.myImageView);
-        if (position > mData.length - DELTA){
+     /*   if (position > mData.length - DELTA){
             System.out.println("debug we need more data position = " + position + " mData.length=" + mData.length);
-           // Bundle b = new Bundle();
-            //mContext.
-        }
+
+        }*/
 
 
     }

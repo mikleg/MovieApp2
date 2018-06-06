@@ -168,9 +168,12 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         // Get all of the values from shared preferences to set it up
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        System.out.println("debug3");
+    //    System.out.println("debug3");
         if (sharedPreferences.getBoolean("sort_order", true)) {NetworkUtils.setSort(ApiConstants.getdRating());}
             else {NetworkUtils.setSort(ApiConstants.getdPopularity());}
+        if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
+        else {NetworkUtils.setAdult("false");}
+
 
         setOrder(sharedPreferences);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -185,9 +188,9 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         }
 
 
-            System.out.println("debug key = " + key + " pref sort key=" + getString(R.string.pref_sort_key));
+     //       System.out.println("debug key = " + key + " pref sort key=" + getString(R.string.pref_sort_key));
             if (key.equals(getString(R.string.pref_sort_key))){
-            System.out.println("debug2");
+       //     System.out.println("debug2");
                 this.setOrder(sharedPreferences);
 
             }
