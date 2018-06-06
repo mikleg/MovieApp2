@@ -2,11 +2,13 @@ package com.mikleg.popularmovies.utils;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.mikleg.popularmovies.model.Movie;
 
 import org.json.JSONArray;
+//import org.json.*;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,8 +23,11 @@ import static java.lang.System.out;
  */
 
 public class JsonUtils {
+    static String  mTotalPages = "1";
     public static String[] getSimpleMoviesFromJson(Context context, String moviesJsonStr)
             throws JSONException {
+
+
 
         final String ARRAY = "results";
         final String TITLE = "title";
@@ -60,6 +65,8 @@ public class JsonUtils {
         }
 
         JSONArray moviesArray = moviesJson.getJSONArray(ARRAY);
+    //    JSONObject max_page = new JSONObject(moviesJsonStr);
+
 
         int i = 0;
         while (i < moviesArray.length()) {
@@ -86,5 +93,12 @@ public class JsonUtils {
         return parsedMoviesData.toArray(new String[parsedMoviesData.size()]);
     }
 
+    public static int getTotalPages(Context context, String moviesJsonStr)  throws JSONException{
+        final String PAGES = "total_pages";
+        JSONObject moviesJson = new JSONObject(moviesJsonStr);
+        mTotalPages = moviesJson.getString(PAGES);
+        System.out.println("debug 9 " + mTotalPages);
+        return Integer.parseInt(mTotalPages);
 
+    }
 }

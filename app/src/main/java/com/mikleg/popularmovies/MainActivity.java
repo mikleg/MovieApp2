@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
 
     private MyMoviesAdapter mAdapter;
     private static final int LOADER_ID = 10;
-    private final int REQUESTS = 5;
+    private int mRequests = 5;
     private RecyclerView mRecyclerView;
     private static boolean PREFERENCES_HAVE_BEEN_UPDATED = false;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -83,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
             public String[] loadInBackground() {
 
                 ArrayList<String> result = new ArrayList<>();
-                for (Integer i =1; i <= REQUESTS; i ++){
+                int i = 1;
+
+                while (i<= mRequests){
                     String page = Integer.toString(i);
                     URL moviesRequestUrl = NetworkUtils.buildUrl(page);
                     try {
@@ -91,16 +93,20 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
                                 .getResponseFromHttpUrl(moviesRequestUrl);
 
                         String[] simpleJsonMovieData = JsonUtils.getSimpleMoviesFromJson(MainActivity.this, jsonMovieResponse );
-                      //  System.out.println("Response1=" + simpleJsonMovieData[0]);
+                        int maxPages = JsonUtils.getTotalPages(MainActivity.this, jsonMovieResponse );
+                        if (i >=maxPages){
+                            i = mRequests; //if we have less then 5 pages -- exit after last one
+                        }
+
                         for (int j=0; j<simpleJsonMovieData.length; j++){
                             result.add(simpleJsonMovieData[j]);
-
                         }
 
                     } catch (Exception e) {
                         e.printStackTrace();
                         return null;
                     }
+                    i++;
                 }
                 return result.toArray(new String[result.size()]);
             }

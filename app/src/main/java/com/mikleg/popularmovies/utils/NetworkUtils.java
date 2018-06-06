@@ -41,6 +41,7 @@ public class NetworkUtils {
                 .appendQueryParameter("include_adult", mAdult)
                 .appendQueryParameter("primary_release_date.gte", mBeginDate)
                 .appendQueryParameter("primary_release_date.lte", mEndDate)
+        //debug        .appendQueryParameter("vote_count.gte", "1500")
                 .build();
         System.out.println(builtUri.toString());
         URL url = null;
