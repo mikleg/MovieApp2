@@ -173,8 +173,6 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
             else {NetworkUtils.setSort(ApiConstants.getdPopularity());}
         if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
         else {NetworkUtils.setAdult("false");}
-
-
         setOrder(sharedPreferences);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
@@ -186,7 +184,8 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
             if (sharedPreferences.getBoolean(key,false)) NetworkUtils.setSort(ApiConstants.getdRating());
             else NetworkUtils.setSort(ApiConstants.getdPopularity());
         }
-
+        if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
+        else {NetworkUtils.setAdult("false");}
 
      //       System.out.println("debug key = " + key + " pref sort key=" + getString(R.string.pref_sort_key));
             if (key.equals(getString(R.string.pref_sort_key))){
@@ -204,8 +203,6 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         System.out.println("debug key = " + getString(R.string.pref_sort_key) + " pref sort key=" + getString(R.string.popularity_sort_value));
         NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
                 getString(R.string.popularity_sort_value)));
-
-
     }
 
 

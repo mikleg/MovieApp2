@@ -12,4 +12,25 @@
         <item>@string/rating_sort_value</item>
         <item>@string/date_sort_value</item>
     </array>
+
+
+    <array name="pref_date_labels">
+        <item>@string/all_dates_label</item>
+        <item>@string/current_year_label</item>
+        <item>@string/last_and_current_year_label</item>
+        <item>@string/last_5_years_label</item>
+        <item>@string/last_10_years_label</item>
+        <item>@string/last_20_years_label</item>
+        <item>@string/last_40_years_label</item>
+    </array>
+
+    <array name="pref_date_values">
+        <item>@string/all_dates_value</item>
+        <item>@string/current_year_value</item>
+        <item>@string/last_and_current_year_value</item>
+        <item>@string/last_5_years_value</item>
+        <item>@string/last_10_years_value</item>
+        <item>@string/last_20_years_value</item>
+        <item>@string/last_40_years_value</item>
+    </array>
 </resources>

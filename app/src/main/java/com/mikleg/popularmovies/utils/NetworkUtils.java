@@ -39,8 +39,8 @@ public class NetworkUtils {
                 .appendQueryParameter("sort_by", dSort)
                 .appendQueryParameter("page",page)
                 .appendQueryParameter("include_adult",adult)
-                .appendQueryParameter("primary_release_date.gte","2017")
-                .appendQueryParameter("primary_release_date.lte","2018")
+             //   .appendQueryParameter("primary_release_date.gte","2017")
+               // .appendQueryParameter("primary_release_date.lte","2018")
                 .build();
         System.out.println(builtUri.toString());
         URL url = null;

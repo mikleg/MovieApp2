@@ -13,17 +13,39 @@
     <string name="menu_settings">Settings</string>
 
     <string name="pref_sort_label">Sort order</string>
+    <string name="pref_dates_label">Dates of releases</string>
 
-    <!-- Label for preference -->
+
+    <!-- Label for sort preference -->
     <string name="popularity_sort_label">Popularity</string>
     <string name="rating_sort_label">Rating</string>
     <string name="date_sort_label">Date</string>
 
-    <!-- Key name for color preference in SharedPreferences -->
-    <string name="pref_sort_key" translatable="false">order</string>
+    <!-- Label for a release date preference -->
+    <string name="all_dates_label">All</string>
+    <string name="current_year_label">Last year</string>
+    <string name="last_and_current_year_label">Last and current year</string>
+    <string name="last_5_years_label">Last 5 years</string>
+    <string name="last_10_years_label">Last 10 years</string>
+    <string name="last_20_years_label">Last 20 years</string>
+    <string name="last_40_years_label">Last 40 years</string>
 
-    <!-- Value in SharedPreferences  -->
+    <!-- Key name for sort preference in SharedPreferences -->
+    <string name="pref_sort_key" translatable="false">order</string>
+    <string name="pref_dates_key" translatable="false">dates</string>
+
+
+    <!-- Value for sort preference  -->
     <string name="popularity_sort_value" translatable="false">popularity.desc</string>
     <string name="rating_sort_value" translatable="false">vote_average.desc</string>
     <string name="date_sort_value" translatable="false">release_date.desc</string>
+
+    <!-- value for a release date preference -->
+    <string name="all_dates_value">0</string>
+    <string name="current_year_value">1</string>
+    <string name="last_and_current_year_value">2</string>
+    <string name="last_5_years_value">3</string>
+    <string name="last_10_years_value">4</string>
+    <string name="last_20_years_value">5</string>
+    <string name="last_40_years_value">6</string>
 </resources>

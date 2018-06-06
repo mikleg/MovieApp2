@@ -18,4 +18,10 @@
         android:summaryOff="Exclude"
         android:summaryOn="Include"
         android:title="Adult" />
+    <ListPreference
+        android:defaultValue="@string/all_dates_value"
+        android:entries="@array/pref_date_labels"
+        android:entryValues="@array/pref_date_values"
+        android:key="@string/pref_dates_key"
+        android:title="@string/pref_dates_label" />
 </PreferenceScreen>
