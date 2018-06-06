@@ -1,5 +1,6 @@
 package com.mikleg.popularmovies;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         launchDetailActivity(position);
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public Loader<String[]> onCreateLoader(int id, final Bundle loaderArgs) {
         return new AsyncTaskLoader<String[]>(this){
@@ -89,19 +91,17 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
                                 .getResponseFromHttpUrl(moviesRequestUrl);
 
                         String[] simpleJsonMovieData = JsonUtils.getSimpleMoviesFromJson(MainActivity.this, jsonMovieResponse );
-                        System.out.println("Response1=" + simpleJsonMovieData[0]);
+                      //  System.out.println("Response1=" + simpleJsonMovieData[0]);
                         for (int j=0; j<simpleJsonMovieData.length; j++){
                             result.add(simpleJsonMovieData[j]);
 
                         }
 
-               //     System.
                     } catch (Exception e) {
                         e.printStackTrace();
                         return null;
                     }
                 }
-               // URL moviesRequestUrl = NetworkUtils.buildUrl("");
                 return result.toArray(new String[result.size()]);
             }
 
