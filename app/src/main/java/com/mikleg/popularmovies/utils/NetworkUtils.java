@@ -1,9 +1,6 @@
 package com.mikleg.popularmovies.utils;
 
-import android.content.Context;
 import android.net.Uri;
-
-import com.mikleg.popularmovies.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,8 +18,11 @@ public class NetworkUtils {
 
     private static String key = ApiUtils.getApiKey();
   //  private static String sort = ApiConstants.getPopularity();
-    private static String dSort = ApiConstants.getdPopularity();
-    private static String adult = "false";
+    private static String mSort = "popularity.desc";
+    private static String mAdult = "false";
+    private static String mBeginDate = "1900";
+    private static String mEndDate = "2018";
+
     public static URL buildUrl(String... params) {
         String page = "1";
         // the page number
@@ -36,11 +36,11 @@ public class NetworkUtils {
                 .appendPath("discover")
                 .appendPath("movie")
                 .appendQueryParameter("api_key", key)
-                .appendQueryParameter("sort_by", dSort)
+                .appendQueryParameter("sort_by", mSort)
                 .appendQueryParameter("page",page)
-                .appendQueryParameter("include_adult",adult)
-             //   .appendQueryParameter("primary_release_date.gte","2017")
-               // .appendQueryParameter("primary_release_date.lte","2018")
+                .appendQueryParameter("include_adult", mAdult)
+                .appendQueryParameter("primary_release_date.gte", mBeginDate)
+                .appendQueryParameter("primary_release_date.lte", mEndDate)
                 .build();
         System.out.println(builtUri.toString());
         URL url = null;
@@ -74,9 +74,15 @@ public class NetworkUtils {
     }
 
     public static void setSort(String sort) {
-        NetworkUtils.dSort = sort;
+        NetworkUtils.mSort = sort;
     }
     public static void setAdult(String adult) {
-        NetworkUtils.adult = adult;
+        NetworkUtils.mAdult = adult;
     }
+    public static void setDates(String beginDate, String endDate) {
+        NetworkUtils.mBeginDate = beginDate;
+        NetworkUtils.mEndDate = endDate;
+    }
+
+
 }

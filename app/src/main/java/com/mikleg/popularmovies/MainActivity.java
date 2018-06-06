@@ -168,12 +168,12 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         // Get all of the values from shared preferences to set it up
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-    //    System.out.println("debug3");
         if (sharedPreferences.getBoolean("sort_order", true)) {NetworkUtils.setSort(ApiConstants.getdRating());}
             else {NetworkUtils.setSort(ApiConstants.getdPopularity());}
         if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
         else {NetworkUtils.setAdult("false");}
         setOrder(sharedPreferences);
+        setDates(sharedPreferences);
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
     }
@@ -187,24 +187,59 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
         else {NetworkUtils.setAdult("false");}
 
-     //       System.out.println("debug key = " + key + " pref sort key=" + getString(R.string.pref_sort_key));
-            if (key.equals(getString(R.string.pref_sort_key))){
-       //     System.out.println("debug2");
-                this.setOrder(sharedPreferences);
+        if (key.equals(getString(R.string.pref_sort_key))){
+            this.setOrder(sharedPreferences);
+        }
 
-            }
-
+        if (key.equals(getString(R.string.pref_dates_key))){
+            this.setDates(sharedPreferences);
+        }
             PREFERENCES_HAVE_BEEN_UPDATED = true;
-
-
-
     }
+
+    private void setDates(SharedPreferences sharedPreferences){
+          String beginDate = "1900", endDate = "2036";
+          String value = sharedPreferences.getString(getString(R.string.pref_dates_key),
+                  getString(R.string.all_dates_value));
+          Log.d(TAG, "debug7 key = " + getString(R.string.pref_dates_key) + " pref dates value=" + value);
+
+             switch (value) {
+                 case "0":
+                     beginDate = "1900";
+                     endDate = "2036";
+                     break;
+                 case "1":
+                     beginDate = "2018";
+                     endDate = "2036";
+                     break;
+                 case "2":
+                     beginDate = "2017";
+                     endDate = "2036";
+                     break;
+                 case "3":
+                     beginDate = "2013";
+                     endDate = "2036";
+                     break;
+                 case "4":
+                     beginDate = "2008";
+                     endDate = "2036";
+                     break;
+                 case "5":
+                     beginDate = "1998";
+                     endDate = "2036";
+                     break;
+                 case "6":
+                     beginDate = "1968";
+                     endDate = "2036";
+                     break;
+             }
+        NetworkUtils.setDates(beginDate, endDate);
+     }
+
     private void setOrder(SharedPreferences sharedPreferences){
-        System.out.println("debug key = " + getString(R.string.pref_sort_key) + " pref sort key=" + getString(R.string.popularity_sort_value));
         NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
                 getString(R.string.popularity_sort_value)));
     }
-
 
     @Override
     protected void onDestroy() {
