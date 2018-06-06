@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import com.mikleg.popularmovies.utils.ApiConstants;
 import com.mikleg.popularmovies.utils.JsonUtils;
 import com.mikleg.popularmovies.utils.NetworkUtils;
 
@@ -174,8 +173,8 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         // Get all of the values from shared preferences to set it up
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPreferences.getBoolean("sort_order", true)) {NetworkUtils.setSort(ApiConstants.getdRating());}
-            else {NetworkUtils.setSort(ApiConstants.getdPopularity());}
+/*        if (sharedPreferences.getBoolean("sort_order", true)) {NetworkUtils.setSort(ApiConstants.getdRating());}
+            else {NetworkUtils.setSort(ApiConstants.getdPopularity());}*/
         if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
         else {NetworkUtils.setAdult("false");}
         setOrder(sharedPreferences);
@@ -186,10 +185,10 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
-        if (key.equals("sort_order")){
+/*        if (key.equals("sort_order")){
             if (sharedPreferences.getBoolean(key,false)) NetworkUtils.setSort(ApiConstants.getdRating());
             else NetworkUtils.setSort(ApiConstants.getdPopularity());
-        }
+        }*/
         if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
         else {NetworkUtils.setAdult("false");}
 

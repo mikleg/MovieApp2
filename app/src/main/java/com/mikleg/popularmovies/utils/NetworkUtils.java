@@ -23,6 +23,7 @@ public class NetworkUtils {
     private static String mBeginDate = "1900";
     private static String mEndDate = "2018";
 
+
     public static URL buildUrl(String... params) {
         String page = "1";
         // the page number

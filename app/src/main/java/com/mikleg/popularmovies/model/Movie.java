@@ -6,19 +6,19 @@ package com.mikleg.popularmovies.model;
 
 public class Movie {
 
-    private String title;
-    private String pop = null;
+    private String title ="NA";
+    private String pop = "NA";
  //   private String poster;
-    private String rating = null;
+    private String rating = "NA";
     private String image = "";
-    private int votes = 0;
-    private String origLang = null;
-    private String genres = null;
-    private String origTitle = null;
-    private String backDrop = null;
+    private String votes = "0";
+    private String origLang = "NA";
+    private String genres = "NA";
+    private String origTitle = "NA";
+    private String backDrop = "NA";
     private boolean adult = false;
-    private String description = null;
-    private String date = null;
+    private String description = "NA";
+    private String date = "NA";
     private String id = null;
 
     public Movie(String title) {
@@ -57,11 +57,11 @@ public class Movie {
         this.image = image;
     }
 
-    public int getVotes() {
+    public String getVotes() {
         return votes;
     }
 
-    public void setVotes(int votes) {
+    public void setVotes(String votes) {
         this.votes = votes;
     }
 

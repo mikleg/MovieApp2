@@ -82,6 +82,9 @@ public class JsonUtils {
              el.setImage("http://image.tmdb.org/t/p/w185" + movieInfo.getString(POSTER));
              el.setRating(movieInfo.getString(RATING));
              el.setId(movieInfo.getString(ID));
+             el.setTitle(movieInfo.getString(TITLE));
+             el.setDate(movieInfo.getString(DATE));
+             el.setVotes(movieInfo.getString(VOTES));
              Gson gson = new Gson();
              parsedMoviesData.add(gson.toJson(el));
 

@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:defaultValue="true"
-        android:key="sort_order"
-        android:summaryOff="Popularity"
-        android:summaryOn="Rating"
-        android:title="Order" />
     <ListPreference
         android:defaultValue="@string/popularity_sort_value"
         android:entries="@array/pref_sort_order_labels"
         android:entryValues="@array/pref_sort_order_values"
         android:key="@string/pref_sort_key"
         android:title="@string/pref_sort_label" />
+     <ListPreference
+        android:defaultValue="@string/all_dates_value"
+        android:entries="@array/pref_date_labels"
+        android:entryValues="@array/pref_date_values"
+        android:key="@string/pref_dates_key"
+        android:title="@string/pref_dates_label" />
     <CheckBoxPreference
         android:defaultValue="false"
         android:key="include_adult"
         android:summaryOff="Exclude"
         android:summaryOn="Include"
         android:title="Adult" />
-    <ListPreference
-        android:defaultValue="@string/all_dates_value"
-        android:entries="@array/pref_date_labels"
-        android:entryValues="@array/pref_date_values"
-        android:key="@string/pref_dates_key"
-        android:title="@string/pref_dates_label" />
 </PreferenceScreen>

@@ -17,9 +17,10 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
     private TextView mDescriptionTextView;
-    private TextView mOriginTextView;
-    private TextView mOtherNamesTextView;
-    private TextView mIngredientsTextView;
+    private TextView mDateTextView;
+    private TextView mRatingTextView;
+    private TextView mTitleTextView;
+    private TextView mVotesTextView;
     private ImageView imageView;
 
     private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
@@ -65,13 +66,17 @@ public class DetailActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.image_iv);
         Picasso.with(this).load(s.getImage()).into(imageView);
         mDescriptionTextView = (TextView) findViewById(R.id.description_tv);
-/*        mOriginTextView = (TextView) findViewById(R.id.origin_tv);
-        mOtherNamesTextView = (TextView) findViewById(R.id.also_known_tv);
-        mIngredientsTextView = (TextView) findViewById(R.id.ingredients_tv);
-        mOriginTextView.append(s.getPlaceOfOrigin());*/
+        mDateTextView = (TextView) findViewById(R.id.release_date_tv);
+        mRatingTextView = (TextView) findViewById(R.id.rating_tv);
+        mVotesTextView = (TextView) findViewById(R.id.votes_tv);
+        mTitleTextView = (TextView) findViewById(R.id.title_tv);
         mDescriptionTextView.append(s.getDescription());
-       // for (String name : s.getAlsoKnownAs()) mOtherNamesTextView.append(name + "; ");
-       // for (String ing : s.getIngredients()) mIngredientsTextView.append(ing + "; ");
+        mDateTextView.append(s.getDate());
+        mRatingTextView.append(s.getRating());
+        mVotesTextView.append(s.getVotes());
+        mTitleTextView.append(s.getTitle());
+
+
 
 
     }
