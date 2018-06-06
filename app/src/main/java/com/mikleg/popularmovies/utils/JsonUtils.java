@@ -58,27 +58,14 @@ public class JsonUtils {
                     return null;
             }
         }
-       // JSONArray deb = moviesJson.names();
+
         JSONArray moviesArray = moviesJson.getJSONArray(ARRAY);
 
-
-       // parsedMoviesData = new String[moviesArray.length()];
-
-
-      //  long localDate = System.currentTimeMillis();
-     //   long utcDate = SunshineDateUtils.getUTCDateFromLocal(localDate);
-     //   long startDay = SunshineDateUtils.normalizeDate(utcDate);
         int i = 0;
         while (i < moviesArray.length()) {
 
             JSONObject movieInfo = moviesArray.getJSONObject(i);
-      /*    String title  = movieInfo.getString(TITLE);
-          String description  = movieInfo.getString(DESCRIPTION);
-          String pop = movieInfo.getString(POP);
-          String poster = movieInfo.getString(POSTER);
-          String rating = movieInfo.getString(RATING);
-          String id = movieInfo.getString(ID);
-          String image = movieInfo.getString(POSTER);*/
+
 
          if ( !movieInfo.getString(POSTER).equals("null")) {
 

@@ -20,33 +20,12 @@ public class NetworkUtils {
   //  private static String sort = ApiConstants.getPopularity();
     private static String dSort = ApiConstants.getdPopularity();
 
-/*    public static URL buildUrl2(String... params) {
-        //    if (params.length == 0) {
-        //        return null;
-        //    }
-        Uri.Builder builtUri = new Uri.Builder();
-        builtUri.scheme("https")
-                .authority("api.themoviedb.org")
-                .appendPath("3")
-                .appendPath("movie")
-                .appendPath(sort)
-                .appendQueryParameter("api_key", key)
-                .build();
-
-        URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return url;
-    }*/
-
     public static URL buildUrl(String... params) {
-        //    if (params.length == 0) {
-        //        return null;
-        //    }
+        String page = "1";
+        // the page number
+            if (params.length > 0) {
+                page = params[0];
+            }
         Uri.Builder builtUri = new Uri.Builder();
         builtUri.scheme("https")
                 .authority("api.themoviedb.org")
@@ -56,6 +35,7 @@ public class NetworkUtils {
                 //.appendPath(sort)
                 .appendQueryParameter("api_key", key)
                 .appendQueryParameter("sort_by", dSort)
+                .appendQueryParameter("page", params[0])
                 .build();
 
         URL url = null;
@@ -73,7 +53,7 @@ public class NetworkUtils {
      */
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        System.out.println("stage1" );
+       // System.out.println("debug stage1" );
         try {
             InputStream in = urlConnection.getInputStream();
            // System.out.println("stage2" );

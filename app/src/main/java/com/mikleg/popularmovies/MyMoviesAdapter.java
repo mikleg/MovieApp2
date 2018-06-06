@@ -1,6 +1,7 @@
 package com.mikleg.popularmovies;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context mContext;
+    private final int DELTA = 3; //min delta when we call an additional data
   //  private String[] mMoviesData;
 
     // data is passed into the constructor
@@ -45,6 +47,11 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
         Movie elem = gson.fromJson(mData[position], Movie.class);
         System.out.println(mData[position]);
         Picasso.with(this.mContext).load(elem.getImage()).into(holder.myImageView);
+        if (position > mData.length - DELTA){
+            System.out.println("debug we need more data position = " + position + " mData.length=" + mData.length);
+           // Bundle b = new Bundle();
+            //mContext.
+        }
 
 
     }

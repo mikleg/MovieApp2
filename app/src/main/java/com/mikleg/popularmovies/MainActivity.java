@@ -16,20 +16,19 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.google.gson.Gson;
-import com.mikleg.popularmovies.model.Movie;
 import com.mikleg.popularmovies.utils.ApiConstants;
 import com.mikleg.popularmovies.utils.JsonUtils;
 import com.mikleg.popularmovies.utils.NetworkUtils;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.ItemClickListener
     , LoaderCallbacks<String[]>, SharedPreferences.OnSharedPreferenceChangeListener{
-//TODO check content for completeness
+
     private MyMoviesAdapter mAdapter;
     private static final int LOADER_ID = 10;
+    private final int REQUESTS = 5;
     private RecyclerView mRecyclerView;
     private static boolean PREFERENCES_HAVE_BEEN_UPDATED = false;
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -47,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         if (width > 3 && width <= 4.5) numberOfColumns = 3;
         if (width > 4.5 && width <= 6) numberOfColumns = 4;
         if (width > 6) numberOfColumns = 5;
-        // data to populate the RecyclerView with
-
         // set up the RecyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
@@ -83,19 +80,29 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
             @Override
             public String[] loadInBackground() {
 
-                URL moviesRequestUrl = NetworkUtils.buildUrl("");
+                ArrayList<String> result = new ArrayList<>();
+                for (Integer i =1; i <= REQUESTS; i ++){
+                    String page = Integer.toString(i);
+                    URL moviesRequestUrl = NetworkUtils.buildUrl(page);
+                    try {
+                        String jsonMovieResponse = NetworkUtils
+                                .getResponseFromHttpUrl(moviesRequestUrl);
 
-                try {
-                    String jsonMovieResponse = NetworkUtils
-                            .getResponseFromHttpUrl(moviesRequestUrl);
+                        String[] simpleJsonMovieData = JsonUtils.getSimpleMoviesFromJson(MainActivity.this, jsonMovieResponse );
+                        System.out.println("Response1=" + simpleJsonMovieData[0]);
+                        for (int j=0; j<simpleJsonMovieData.length; j++){
+                            result.add(simpleJsonMovieData[j]);
 
-                    String[] simpleJsonMovieData = JsonUtils.getSimpleMoviesFromJson(MainActivity.this, jsonMovieResponse );
-                    System.out.println("Response1=" + simpleJsonMovieData[0]);
-                    return simpleJsonMovieData;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
+                        }
+
+               //     System.
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return null;
+                    }
                 }
+               // URL moviesRequestUrl = NetworkUtils.buildUrl("");
+                return result.toArray(new String[result.size()]);
             }
 
             public void deliverResult(String[] data) {
@@ -108,10 +115,6 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         };
 
     }
-
-
-
-
 
 
 
