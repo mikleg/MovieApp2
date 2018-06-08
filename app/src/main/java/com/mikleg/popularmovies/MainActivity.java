@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
                 while (i<= mRequests){
                     String page = Integer.toString(i);
                     URL moviesRequestUrl = NetworkUtils.buildUrl(page);
+                    System.out.println(moviesRequestUrl);
                     try {
                         String jsonMovieResponse = NetworkUtils
                                 .getResponseFromHttpUrl(moviesRequestUrl);
@@ -242,8 +243,11 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
      }
 
     private void setOrder(SharedPreferences sharedPreferences){
+/*        NetworkUtils.setSortDiscover(sharedPreferences.getString(getString(R.string.pref_sort_key),
+                getString(R.string.popularity_sort_value)));*/
         NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
                 getString(R.string.popularity_sort_value)));
+//        NetworkUtils.setSort("popular");
     }
 
     @Override

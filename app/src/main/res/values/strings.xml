@@ -36,10 +36,15 @@
     <string name="pref_dates_key" translatable="false">dates</string>
 
 
-    <!-- Value for sort preference  -->
+<!--    &lt;!&ndash; Value for sort preference  &ndash;&gt;
     <string name="popularity_sort_value" translatable="false">popularity.desc</string>
     <string name="rating_sort_value" translatable="false">vote_average.desc</string>
-    <string name="date_sort_value" translatable="false">release_date.desc</string>
+    <string name="date_sort_value" translatable="false">release_date.desc</string>-->
+
+    <!-- Value for sort preference  -->
+    <string name="popularity_sort_value" translatable="false">popular</string>
+    <string name="rating_sort_value" translatable="false">top_rated</string>
+
 
     <!-- value for a release date preference -->
     <string name="all_dates_value">0</string>

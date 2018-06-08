@@ -6,7 +6,7 @@
         android:entryValues="@array/pref_sort_order_values"
         android:key="@string/pref_sort_key"
         android:title="@string/pref_sort_label" />
-     <ListPreference
+<!--     <ListPreference
         android:defaultValue="@string/all_dates_value"
         android:entries="@array/pref_date_labels"
         android:entryValues="@array/pref_date_values"
@@ -17,5 +17,5 @@
         android:key="include_adult"
         android:summaryOff="Exclude"
         android:summaryOn="Include"
-        android:title="Adult" />
+        android:title="Adult" />-->
 </PreferenceScreen>

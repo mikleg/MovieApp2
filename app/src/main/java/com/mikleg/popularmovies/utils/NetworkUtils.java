@@ -18,13 +18,14 @@ public class NetworkUtils {
 
     private static String key = ApiUtils.getApiKey();
   //  private static String sort = ApiConstants.getPopularity();
-    private static String mSort = "popularity.desc";
+    private static String mSortDisc = "popularity.desc";
     private static String mAdult = "false";
     private static String mBeginDate = "1900";
     private static String mEndDate = "2018";
+    private static String mSort = "popular";
 
 
-    public static URL buildUrl(String... params) {
+    public static URL buildUrl2(String... params) {
         String page = "1";
         // the page number
             if (params.length > 0) {
@@ -37,12 +38,46 @@ public class NetworkUtils {
                 .appendPath("discover")
                 .appendPath("movie")
                 .appendQueryParameter("api_key", key)
-                .appendQueryParameter("sort_by", mSort)
+                .appendQueryParameter("sort_by", mSortDisc)
                 .appendQueryParameter("page",page)
                 .appendQueryParameter("include_adult", mAdult)
                 .appendQueryParameter("primary_release_date.gte", mBeginDate)
                 .appendQueryParameter("primary_release_date.lte", mEndDate)
         //debug        .appendQueryParameter("vote_count.gte", "1500")
+                .build();
+        System.out.println(builtUri.toString());
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return url;
+    }
+
+    public static URL buildUrl(String... params) {
+        String page = "1";
+        // the page number
+        if (params.length > 0) {
+            page = params[0];
+        }
+        Uri.Builder builtUri = new Uri.Builder();
+        builtUri.scheme("https")
+                .authority("api.themoviedb.org")
+                .appendPath("3")
+              //  .appendPath("discover")
+                .appendPath("movie")
+                .appendPath(mSort)
+
+
+                .appendQueryParameter("api_key", key)
+               // .appendQueryParameter("sort_by", mSort)
+              //  .appendQueryParameter("page",page)
+               // .appendQueryParameter("include_adult", mAdult)
+              //  .appendQueryParameter("primary_release_date.gte", mBeginDate)
+               // .appendQueryParameter("primary_release_date.lte", mEndDate)
+                //debug        .appendQueryParameter("vote_count.gte", "1500")
                 .build();
         System.out.println(builtUri.toString());
         URL url = null;
@@ -75,8 +110,8 @@ public class NetworkUtils {
         }
     }
 
-    public static void setSort(String sort) {
-        NetworkUtils.mSort = sort;
+    public static void setSortDiscover(String sort) {
+        NetworkUtils.mSortDisc = sort;
     }
     public static void setAdult(String adult) {
         NetworkUtils.mAdult = adult;
@@ -85,6 +120,10 @@ public class NetworkUtils {
         NetworkUtils.mBeginDate = beginDate;
         NetworkUtils.mEndDate = endDate;
     }
+    public static void setSort(String sort) {
+        NetworkUtils.mSort = sort;
+    }
+
 
 
 }
