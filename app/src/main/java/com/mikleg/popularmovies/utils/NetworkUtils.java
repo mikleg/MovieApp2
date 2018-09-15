@@ -1,6 +1,7 @@
 package com.mikleg.popularmovies.utils;
 
 import android.net.Uri;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+
+import static android.support.constraint.Constraints.TAG;
 
 /**
  * Created by mikle on 5/16/2018.
@@ -52,7 +55,7 @@ public class NetworkUtils {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
+//https://api.themoviedb.org/3/movie/15/videos?api_key=iojefijfjk&language=en-US
         return url;
     }
 
@@ -121,6 +124,8 @@ public class NetworkUtils {
         NetworkUtils.mEndDate = endDate;
     }
     public static void setSort(String sort) {
+        Log.d(TAG, "setsort1");
+        Log.d(TAG, "sort" + sort);
         NetworkUtils.mSort = sort;
     }
 

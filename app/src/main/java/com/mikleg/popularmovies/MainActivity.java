@@ -49,13 +49,19 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
         // set up the RecyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.rvNumbers);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        Log.d(TAG, "start_2");
         mAdapter = new MyMoviesAdapter(this);
         mAdapter.setClickListener(this);
         mRecyclerView.setAdapter(mAdapter);
+        Log.d(TAG, "start_5");
         setupSharedPreferences();
+        Log.d(TAG, "start_6");
         LoaderCallbacks<String[]> callback = MainActivity.this;
+        Log.d(TAG, "start_7");
         final Bundle bundleForLoader = null;
+        Log.d(TAG, "start_8");
         getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
+        Log.d(TAG, "start_10");
     }
 
     @Override
@@ -87,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
                 while (i<= mRequests){
                     String page = Integer.toString(i);
                     URL moviesRequestUrl = NetworkUtils.buildUrl(page);
-                    System.out.println(moviesRequestUrl);
+                    //TODO add data about video
+                    System.out.println("moviesRequestUrl= " + moviesRequestUrl);
                     try {
                         String jsonMovieResponse = NetworkUtils
                                 .getResponseFromHttpUrl(moviesRequestUrl);
@@ -108,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
                     }
                     i++;
                 }
+               // for (int k=0; k < result.size(); k++ )
+                  //  System.out.println("Debug result=" + result.get(k));
                 return result.toArray(new String[result.size()]);
             }
 
@@ -172,14 +181,19 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
 
     private void setupSharedPreferences() {
         // Get all of the values from shared preferences to set it up
-
+        Log.d(TAG, "sp1");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Log.d(TAG, "sp2");
 /*        if (sharedPreferences.getBoolean("sort_order", true)) {NetworkUtils.setSort(ApiConstants.getdRating());}
             else {NetworkUtils.setSort(ApiConstants.getdPopularity());}*/
-        if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
-        else {NetworkUtils.setAdult("false");}
+        //if (sharedPreferences.getBoolean("include_adult", false)) {NetworkUtils.setAdult("true");}
+       // else {NetworkUtils.setAdult("false");}
+        Log.d(TAG, "sp3");
+        Log.d(TAG, "sh_P=" + sharedPreferences.toString());
         setOrder(sharedPreferences);
+        Log.d(TAG, "sp4");
         setDates(sharedPreferences);
+        Log.d(TAG, "sp6");
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
     }
@@ -245,8 +259,12 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
     private void setOrder(SharedPreferences sharedPreferences){
 /*        NetworkUtils.setSortDiscover(sharedPreferences.getString(getString(R.string.pref_sort_key),
                 getString(R.string.popularity_sort_value)));*/
-        NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key),
-                getString(R.string.popularity_sort_value)));
+        //Log.d(TAG, "setOrde1");
+        //Log.d(TAG, "sharedPreferences=" + sharedPreferences.getString("order", "popular" ));
+        NetworkUtils.setSort(sharedPreferences.getString(getString(R.string.pref_sort_key), getString(R.string.popularity_sort_value)));
+       // NetworkUtils.setSort(sharedPreferences.getString("order", "popular"));
+        //NetworkUtils.setSort("popular");
+
 //        NetworkUtils.setSort("popular");
     }
 
