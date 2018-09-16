@@ -60,35 +60,40 @@ public class NetworkUtils {
     }
 
     public static URL buildUrl(String... params) {
-        String page = "1";
+        //String page = "1";
         // the page number
-        if (params.length > 0) {
+       /* if (params.length > 0) {
             page = params[0];
-        }
-        Uri.Builder builtUri = new Uri.Builder();
-        builtUri.scheme("https")
-                .authority("api.themoviedb.org")
-                .appendPath("3")
-              //  .appendPath("discover")
-                .appendPath("movie")
-                .appendPath(mSort)
-
-
-                .appendQueryParameter("api_key", key)
-               // .appendQueryParameter("sort_by", mSort)
-              //  .appendQueryParameter("page",page)
-               // .appendQueryParameter("include_adult", mAdult)
-              //  .appendQueryParameter("primary_release_date.gte", mBeginDate)
-               // .appendQueryParameter("primary_release_date.lte", mEndDate)
-                //debug        .appendQueryParameter("vote_count.gte", "1500")
-                .build();
-        System.out.println(builtUri.toString());
+        }*/
         URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        if (params.length == 0) {
+            Uri.Builder builtUri = new Uri.Builder();
+            builtUri.scheme("https")
+                    .authority("api.themoviedb.org")
+                    .appendPath("3")
+                    //  .appendPath("discover")
+                    .appendPath("movie")
+                    .appendPath(mSort)
+
+
+                    .appendQueryParameter("api_key", key)
+                    // .appendQueryParameter("sort_by", mSort)
+                    //  .appendQueryParameter("page",page)
+                    // .appendQueryParameter("include_adult", mAdult)
+                    //  .appendQueryParameter("primary_release_date.gte", mBeginDate)
+                    // .appendQueryParameter("primary_release_date.lte", mEndDate)
+                    //debug        .appendQueryParameter("vote_count.gte", "1500")
+                    .build();
+            System.out.println(builtUri.toString());
+
+            try {
+                url = new URL(builtUri.toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
         }
+
 
         return url;
     }

@@ -91,8 +91,9 @@ public class MainActivity extends AppCompatActivity implements MyMoviesAdapter.I
                 int i = 1;
 
                 while (i<= mRequests){
-                    String page = Integer.toString(i);
-                    URL moviesRequestUrl = NetworkUtils.buildUrl(page);
+                    //String page = Integer.toString(i);
+                    //URL moviesRequestUrl = NetworkUtils.buildUrl(page);
+                    URL moviesRequestUrl = NetworkUtils.buildUrl();
                     //TODO add data about video
                     System.out.println("moviesRequestUrl= " + moviesRequestUrl);
                     try {

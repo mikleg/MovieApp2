@@ -2,11 +2,11 @@ package com.mikleg.popularmovies.utils;
 
 /**
  * Created by mikle on 5/30/2018.
- * It return the API key
+ * It returned the API key
  */
 
 public class ApiUtils {
-    private static final String apiKey="YOURAPIKEY";
+    private static final String apiKey="eba056d2c85537bb0f952351ce33b7a8";
 
     public ApiUtils() {
     }
