@@ -27,75 +27,45 @@ public class NetworkUtils {
     private static String mEndDate = "2018";
     private static String mSort = "popular";
 
+//https://api.themoviedb.org/3/movie/15/videos?api_key=iojefijfjk&language=en-US
+//https://api.themoviedb.org/3/movie/15/reviews?api_key=eba056d2c85537bb0f952351ce33b7a8&language=en-US
+// http://api.themoviedb.org/3/movie/157336/videos?api_key=###
+// https://api.themoviedb.org/3/movie/popular?api_key=eba056d2c85537bb0f952351ce33b7a8
+// https://api.themoviedb.org/3/movie/top_rated?api_key=eba056d2c85537bb0f952351ce33b7a8
+// https://api.themoviedb.org/3/movie/top_rated/?api_key=eba056d2c85537bb0f952351ce33b7a8
 
-    public static URL buildUrl2(String... params) {
-        String page = "1";
-        // the page number
-            if (params.length > 0) {
-                page = params[0];
-            }
+    public static URL buildUrl(String... params) {
+        URL url = null;
+        String lId = "";
+        String lPath ="";
+        if (params.length == 0){
+            lPath = mSort;
+        }
+        else {
+            lId = params[1];
+            if (params[0] == "video")
+                lPath = "videos";
+            else
+                lPath = "reviews";
+        }
         Uri.Builder builtUri = new Uri.Builder();
         builtUri.scheme("https")
                 .authority("api.themoviedb.org")
                 .appendPath("3")
-                .appendPath("discover")
                 .appendPath("movie")
+                .appendPath(lId)
+                .appendPath(lPath)
                 .appendQueryParameter("api_key", key)
-                .appendQueryParameter("sort_by", mSortDisc)
-                .appendQueryParameter("page",page)
-                .appendQueryParameter("include_adult", mAdult)
-                .appendQueryParameter("primary_release_date.gte", mBeginDate)
-                .appendQueryParameter("primary_release_date.lte", mEndDate)
-        //debug        .appendQueryParameter("vote_count.gte", "1500")
                 .build();
-        System.out.println(builtUri.toString());
-        URL url = null;
+        System.out.println("debug built URL=" + builtUri.toString());
+
         try {
             url = new URL(builtUri.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-//https://api.themoviedb.org/3/movie/15/videos?api_key=iojefijfjk&language=en-US
-        return url;
-    }
 
-    public static URL buildUrl(String... params) {
-        //String page = "1";
-        // the page number
-       /* if (params.length > 0) {
-            page = params[0];
-        }*/
-        URL url = null;
-        if (params.length == 0) {
-            Uri.Builder builtUri = new Uri.Builder();
-            builtUri.scheme("https")
-                    .authority("api.themoviedb.org")
-                    .appendPath("3")
-                    //  .appendPath("discover")
-                    .appendPath("movie")
-                    .appendPath(mSort)
-
-
-                    .appendQueryParameter("api_key", key)
-                    // .appendQueryParameter("sort_by", mSort)
-                    //  .appendQueryParameter("page",page)
-                    // .appendQueryParameter("include_adult", mAdult)
-                    //  .appendQueryParameter("primary_release_date.gte", mBeginDate)
-                    // .appendQueryParameter("primary_release_date.lte", mEndDate)
-                    //debug        .appendQueryParameter("vote_count.gte", "1500")
-                    .build();
-            System.out.println(builtUri.toString());
-
-            try {
-                url = new URL(builtUri.toString());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-
-        }
-
-
-        return url;
+         return url;
     }
 
     /**
