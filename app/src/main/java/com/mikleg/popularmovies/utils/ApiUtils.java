@@ -6,7 +6,7 @@ package com.mikleg.popularmovies.utils;
  */
 
 public class ApiUtils {
-    private static final String apiKey="eba056d2c85537bb0f952351ce33b7a8";
+    private static final String apiKey="api key";
 
     public ApiUtils() {
     }
