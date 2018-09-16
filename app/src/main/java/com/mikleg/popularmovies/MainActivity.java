@@ -1,5 +1,8 @@
 package com.mikleg.popularmovies;
-
+//TODO add review in detail // may be add a second loader class, or add divider in array and then review data
+//TODO display video and review
+//TODO add favorite
+//TODO add DB
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;

@@ -132,8 +132,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                         String jsonRevievsResponse = NetworkUtils
                                 .getResponseFromHttpUrl(moviesRequestUrlReview);
 
-                        String[] simpleJsonVideoData = JsonUtils.getSimpleMoviesFromJson(DetailActivity.this, jsonVideoResponse );
-                        String[] simpleJsonReviewData = JsonUtils.getSimpleMoviesFromJson(DetailActivity.this, jsonRevievsResponse );
+                        String[] simpleJsonVideoData = JsonUtils.getSimpleDataFromJson(DetailActivity.this, jsonVideoResponse );
+                      //  String[] simpleJsonReviewData = JsonUtils.getSimpleDataFromJson(DetailActivity.this, jsonRevievsResponse );
 //                        int maxPages = JsonUtils.getTotalPages(DetailActivity.this, jsonMovieResponse );
 //                        if (i >=maxPages){
 //                            i = mRequests;
@@ -145,9 +145,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                         //TODO check result.addALL
 
 
-                        for (int j=0; j<simpleJsonReviewData.length; j++){
+                  /*      for (int j=0; j<simpleJsonReviewData.length; j++){
                             result2.add(simpleJsonReviewData[j]);
-                    }
+                    }*/
 
                     } catch (Exception e) {
                         e.printStackTrace();
