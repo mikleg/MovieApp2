@@ -2,14 +2,11 @@ package com.mikleg.popularmovies;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -133,7 +130,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                                 .getResponseFromHttpUrl(moviesRequestUrlReview);
 
                         String[] simpleJsonVideoData = JsonUtils.getSimpleDataFromJson(DetailActivity.this, jsonVideoResponse );
-                      //  String[] simpleJsonReviewData = JsonUtils.getSimpleDataFromJson(DetailActivity.this, jsonRevievsResponse );
+                        String[] simpleJsonReviewData = JsonUtils.getSimpleDataFromJson(DetailActivity.this, jsonRevievsResponse );
 //                        int maxPages = JsonUtils.getTotalPages(DetailActivity.this, jsonMovieResponse );
 //                        if (i >=maxPages){
 //                            i = mRequests;
@@ -142,6 +139,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                         for (int j=0; j<simpleJsonVideoData.length; j++){
                             result.add(simpleJsonVideoData[j]);
                         }
+                        Integer divider = result.size();
+
+
+                        for (int j=0; j<simpleJsonReviewData.length; j++){
+                            result.add(simpleJsonReviewData[j]);
+                        }
+                        result.add("divider=" + divider.toString());
                         //TODO check result.addALL
 
 
@@ -157,7 +161,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 }
                 // for (int k=0; k < result.size(); k++ )
                 //  System.out.println("Debug result=" + result.get(k));
+
+                String[] debug = result.toArray(new String[result.size()]);
                 return result.toArray(new String[result.size()]);
+
             }
 
             public void deliverResult(String[] data) {

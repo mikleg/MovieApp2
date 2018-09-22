@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.mikleg.popularmovies.model.Movie;
+import com.mikleg.popularmovies.model.Review;
 import com.mikleg.popularmovies.model.Video;
 
 import org.json.JSONArray;
@@ -103,21 +104,12 @@ public class JsonUtils {
         final String TYPE ="type";
         final String SITE ="site";
         final String ARRAY = "results";
-        final String TITLE = "title";
-        final String POP = "popularity";
-        final String ID = "id";
-        final String POSTER = "poster_path";
-        final String GENRES = "genres_ids";
-        final String RATING = "vote_average";
-        final String ORIGINAL_TITLE = "original_title";
-        final String DESCRIPTION = "overview";
-        final String DATE = "release_date";
-        final String VOTES = "vote_count";
+        final String AUTHOR ="author";
+        final String CONTENT ="content";
 
         final String OWM_MESSAGE_CODE = "cod"; //TODO -- check the same codes from OPENMDB
 
         List<String> parsedMoviesData = new ArrayList<>();
-        //String[] parsedMoviesData = null;
 
         JSONObject moviesJson = new JSONObject(moviesJsonStr);
 
@@ -140,24 +132,36 @@ public class JsonUtils {
         JSONArray moviesArray = moviesJson.getJSONArray(ARRAY);
         //    JSONObject max_page = new JSONObject(moviesJsonStr);
 
-
         int i = 0;
         while (i < moviesArray.length()) {
 
             JSONObject movieInfo = moviesArray.getJSONObject(i);
 
-
-
-
                 //Movie el = new Movie(movieInfo.getString(TITLE));
-                Video el = new Video();
-                el.setName(movieInfo.getString(NAME));
-                el.setKey(movieInfo.getString(KEY));
-                el.setSite(movieInfo.getString(SITE));
-                el.setType(movieInfo.getString(TYPE));
-                Gson gson = new Gson();
-                parsedMoviesData.add(gson.toJson(el));
+                try {
+                    Video el = new Video();
+                    el.setName(movieInfo.getString(NAME));
+                    el.setKey(movieInfo.getString(KEY));
+                    el.setSite(movieInfo.getString(SITE));
+                    el.setType(movieInfo.getString(TYPE));
+                    Gson gson = new Gson();
+                    parsedMoviesData.add(gson.toJson(el));
+                }
+                catch (Exception ex){
+                    System.out.println("it's not a video");
+                    try {
+                        Review el = new Review();
+                        el.setAuthor(movieInfo.getString(AUTHOR));
+                        el.setContent(movieInfo.getString(CONTENT));
 
+                        Gson gson = new Gson();
+                        parsedMoviesData.add(gson.toJson(el));
+                    }
+                    catch (Exception ex2){
+                        System.out.println("it's not a review");
+                    }
+
+                }
 
             i++;
 

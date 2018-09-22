@@ -4,6 +4,8 @@
     <string name="detail_title_label">Title:</string>
     <string name="date_label">Release date:</string>
     <string name="detail_description_label">Description:</string>
+    <string name="videos_label">Videos and trailers:</string>
+    <string name="reviews_label">Reviews:</string>
     <string name="detail_rating_label">Rating:</string>
     <string name="votes_label">Votes:</string>
     <string name="detail_poster_picture">Poster picture</string>
