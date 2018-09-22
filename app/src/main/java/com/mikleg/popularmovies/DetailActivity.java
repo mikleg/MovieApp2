@@ -7,12 +7,16 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mikleg.popularmovies.model.Movie;
+import com.mikleg.popularmovies.model.Video;
 import com.mikleg.popularmovies.utils.JsonUtils;
 import com.mikleg.popularmovies.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
@@ -30,10 +34,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private TextView mRatingTextView;
     private TextView mTitleTextView;
     private TextView mVotesTextView;
+    private TextView mVideoTextView;
     private ImageView imageView;
     private String[] mData ;
     private static final int LOADER_ID = 11;
     private int mRequests = 1;
+    private RecyclerView mRecyclerView;
+    private VideosAdapter mAdapter;
 
     private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
 
@@ -53,24 +60,20 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if (intent == null) {
             closeOnError();
         }
+        //TODO check id:
+        mRecyclerView = (RecyclerView) findViewById(R.id.rvVideos);
+       // mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        //Log.d(TAG, "start_2");
+        mAdapter = new VideosAdapter(this);
+        //mAdapter.setClickListener(this);
+        mRecyclerView.setAdapter(mAdapter);
 
-/*        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            mSzString = intent.getStringExtra(Intent.EXTRA_TEXT);
-            mDescriptionTextView.setText(mSzString);
-        }*/
         Gson gson = new Gson();
         Movie movieData = gson.fromJson(getIntent().getStringExtra("jsonText"), Movie.class);
-
+       // Video video = gson.fromJson(getIntent().getStringExtra("jsonText"), Movie.class);
         populateUI(movieData);
-/*        Picasso.with(this)
-                .load(sandwich.getImage())
-                .into(ingredientsIv);*/
-
-       // setTitle(sandwich.getMainName());
         LoaderManager.LoaderCallbacks<String[]> callback = DetailActivity.this;
-
         final Bundle bundleForLoader = null;
-
         getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
 
     }
@@ -93,6 +96,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mRatingTextView.append(s.getRating());
         mVotesTextView.append(s.getVotes());
         mTitleTextView.append(s.getTitle());
+       // System.out.println(mData.length);
+        //mVideoTextView.append(mData[0]);
+
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -145,7 +151,8 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                         for (int j=0; j<simpleJsonReviewData.length; j++){
                             result.add(simpleJsonReviewData[j]);
                         }
-                        result.add("divider=" + divider.toString());
+                        //how long is the videos list:
+                        result.add(divider.toString());
                         //TODO check result.addALL
 
 
