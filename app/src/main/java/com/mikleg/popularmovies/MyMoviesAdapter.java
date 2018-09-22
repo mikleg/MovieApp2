@@ -45,10 +45,6 @@ public class MyMoviesAdapter extends RecyclerView.Adapter<MyMoviesAdapter.ViewHo
         Movie elem = gson.fromJson(mData[position], Movie.class);
         System.out.println("myadapter " + mData[position]);
         Picasso.with(this.mContext).load(elem.getImage()).into(holder.myImageView);
-     /*   if (position > mData.length - DELTA){
-            System.out.println("debug we need more data position = " + position + " mData.length=" + mData.length);
-
-        }*/
 
 
     }

@@ -8,8 +8,10 @@ import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String[]> {
+public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String[]>, VideosAdapter.ItemClickListener {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
@@ -61,20 +63,22 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             closeOnError();
         }
         //TODO check id:
-        mRecyclerView = (RecyclerView) findViewById(R.id.rvVideos);
-       // mRecyclerView.setLayoutManager(new GridLayoutManager(this, numberOfColumns));
+        //mRecyclerView = (RecyclerView) findViewById(R.id.rvVideos);
+        //LinearLayoutManager manager = new LinearLayoutManager(this);
+        //mRecyclerView.setLayoutManager(manager);
         //Log.d(TAG, "start_2");
-        mAdapter = new VideosAdapter(this);
+        //mAdapter = new VideosAdapter(this);
         //mAdapter.setClickListener(this);
-        mRecyclerView.setAdapter(mAdapter);
+        //mRecyclerView.setAdapter(mAdapter);
 
         Gson gson = new Gson();
         Movie movieData = gson.fromJson(getIntent().getStringExtra("jsonText"), Movie.class);
        // Video video = gson.fromJson(getIntent().getStringExtra("jsonText"), Movie.class);
-        populateUI(movieData);
+
         LoaderManager.LoaderCallbacks<String[]> callback = DetailActivity.this;
         final Bundle bundleForLoader = null;
         getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
+        populateUI(movieData);
 
     }
 
@@ -91,6 +95,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mRatingTextView = (TextView) findViewById(R.id.rating_tv);
         mVotesTextView = (TextView) findViewById(R.id.votes_tv);
         mTitleTextView = (TextView) findViewById(R.id.title_tv);
+        mVideoTextView = (TextView) findViewById(R.id.videos_tv);
         mDescriptionTextView.append(s.getDescription());
         mDateTextView.append(s.getDate());
         mRatingTextView.append(s.getRating());
@@ -189,8 +194,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoadFinished(Loader<String[]> loader, String[] data) {
         //   int debug = 1;
         mData = data ;
+        System.out.println("debug onLoadFinished");
+        mVideoTextView.append(mData[0]);
 /*        if (null != data) {
-            //TODo remove that
             mRecyclerView.setVisibility(View.VISIBLE);
         }*/
     }
@@ -198,6 +204,12 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoaderReset(Loader<String[]> loader) {
 
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Log.i("TAG", "You clicked number " + mAdapter.getItem(position) + ", which is at cell position " + position);
+        //launchDetailActivity(position);
     }
 
 }

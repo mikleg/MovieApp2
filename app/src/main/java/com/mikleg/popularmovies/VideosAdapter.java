@@ -40,7 +40,6 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         Gson gson = new Gson();
-
         Video elem = gson.fromJson(mData[position], Video.class);
         System.out.println("video adapter " + mData[position]);
        // Picasso.with(this.mContext).load(elem.getImage()).into(holder.myImageView);

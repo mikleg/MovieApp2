@@ -69,8 +69,8 @@
             android:layout_height="wrap_content"
             android:text="@string/videos_label"
             android:textStyle="bold" />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvVideos"
+        <TextView
+            android:id="@+id/videos_tv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <TextView
@@ -78,8 +78,8 @@
             android:layout_height="wrap_content"
             android:text="@string/reviews_label"
             android:textStyle="bold" />
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvReviews"
+        <TextView
+            android:id="@+id/reviews"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
      </LinearLayout>
