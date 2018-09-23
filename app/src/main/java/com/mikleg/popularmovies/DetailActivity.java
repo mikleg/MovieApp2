@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String[]>, VideosAdapter.ItemClickListener {
+public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String[]> {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
@@ -41,8 +41,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private String[] mData ;
     private static final int LOADER_ID = 11;
     private int mRequests = 1;
-    private RecyclerView mRecyclerView;
-    private VideosAdapter mAdapter;
+    private String mMovieId;
+
+
 
     private static final String FORECAST_SHARE_HASHTAG = " #SunshineApp";
 
@@ -78,6 +79,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         LoaderManager.LoaderCallbacks<String[]> callback = DetailActivity.this;
         final Bundle bundleForLoader = null;
         getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
+        mMovieId = movieData.getId();
         populateUI(movieData);
 
     }
@@ -124,13 +126,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
             public String[] loadInBackground() {
 
                 ArrayList<String> result = new ArrayList<>();
-                ArrayList<String> result2 = new ArrayList<>();
+               // ArrayList<String> result2 = new ArrayList<>();
                 int i = 1;
 
                 while (i<= mRequests){
                     //String page = Integer.toString(i);
-                    URL debugRequestUrlVedeo = NetworkUtils.buildUrl("video", "15");
-                    URL moviesRequestUrlReview = NetworkUtils.buildUrl("review", "15");
+                    URL debugRequestUrlVedeo = NetworkUtils.buildUrl("video", mMovieId);
+                    URL moviesRequestUrlReview = NetworkUtils.buildUrl("review", mMovieId);
                     System.out.println("moviesRequestUrl= " + debugRequestUrlVedeo);
                     System.out.println("moviesRequestUrl= " + moviesRequestUrlReview                                                                                                                                       );
                    // System.out.println("moviesRequestUrl= " + moviesRequestUrl);
@@ -195,21 +197,24 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         //   int debug = 1;
         mData = data ;
         System.out.println("debug onLoadFinished");
-        mVideoTextView.append(mData[0]);
-/*        if (null != data) {
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }*/
+        addVideos();
+
     }
 
     @Override
     public void onLoaderReset(Loader<String[]> loader) {
+    }
+
+    private void addVideos(){
+        Integer videosTotal =  Integer.parseInt(mData[mData.length-1]);
+        Gson gson = new Gson();
+        for (int i = 0; i < videosTotal; i++){
+            Video video = gson.fromJson(mData[i], Video.class);
+            mVideoTextView.append(video.getName());
+        }
+
 
     }
 
-    @Override
-    public void onItemClick(View view, int position) {
-        Log.i("TAG", "You clicked number " + mAdapter.getItem(position) + ", which is at cell position " + position);
-        //launchDetailActivity(position);
-    }
 
 }
