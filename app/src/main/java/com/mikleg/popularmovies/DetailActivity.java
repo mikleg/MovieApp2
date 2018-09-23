@@ -25,6 +25,7 @@ import com.squareup.picasso.Picasso;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String[]> {
@@ -36,7 +37,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private TextView mRatingTextView;
     private TextView mTitleTextView;
     private TextView mVotesTextView;
-    private TextView mVideoTextView;
+    private List<TextView> mVideoTextViews = new ArrayList<TextView>();
     private ImageView imageView;
     private String[] mData ;
     private static final int LOADER_ID = 11;
@@ -81,6 +82,14 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         getSupportLoaderManager().initLoader(LOADER_ID, bundleForLoader, callback);
         mMovieId = movieData.getId();
         populateUI(movieData);
+        for (Integer i =0; i < 6; i++){
+            String name = "videos_tv" + i.toString();
+            int id = getResources().getIdentifier(name, "id", getPackageName());
+            TextView textView = (TextView) findViewById(id);
+            textView.setVisibility(View.INVISIBLE);
+            mVideoTextViews.add(textView);
+        }
+
 
     }
 
@@ -97,7 +106,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         mRatingTextView = (TextView) findViewById(R.id.rating_tv);
         mVotesTextView = (TextView) findViewById(R.id.votes_tv);
         mTitleTextView = (TextView) findViewById(R.id.title_tv);
-        mVideoTextView = (TextView) findViewById(R.id.videos_tv);
         mDescriptionTextView.append(s.getDescription());
         mDateTextView.append(s.getDate());
         mRatingTextView.append(s.getRating());
@@ -185,9 +193,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                 mMoviesData = data;
                 super.deliverResult(data);
             }
-
-
-
         };
 
     }
@@ -208,9 +213,10 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private void addVideos(){
         Integer videosTotal =  Integer.parseInt(mData[mData.length-1]);
         Gson gson = new Gson();
-        for (int i = 0; i < videosTotal; i++){
+        for (Integer i = 0; i < videosTotal && i < 6; i++){
             Video video = gson.fromJson(mData[i], Video.class);
-            mVideoTextView.append(video.getName());
+            mVideoTextViews.get(i).append(video.getName().substring(0, Math.min(video.getName().length(), 60)));
+            mVideoTextViews.get(i).setVisibility(View.VISIBLE);
         }
 
 

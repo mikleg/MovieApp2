@@ -70,7 +70,28 @@
             android:text="@string/videos_label"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/videos_tv"
+            android:id="@+id/videos_tv0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/videos_tv1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/videos_tv2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/videos_tv3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/videos_tv4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/videos_tv5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <TextView
