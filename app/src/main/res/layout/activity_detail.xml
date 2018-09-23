@@ -100,7 +100,28 @@
             android:text="@string/reviews_label"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/reviews"
+            android:id="@+id/reviews_tv0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/reviews_tv1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/reviews_tv2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/reviews_tv3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/reviews_tv4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/reviews_tv5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

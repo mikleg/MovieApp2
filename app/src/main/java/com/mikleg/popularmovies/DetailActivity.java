@@ -7,10 +7,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mikleg.popularmovies.model.Movie;
+import com.mikleg.popularmovies.model.Review;
 import com.mikleg.popularmovies.model.Video;
 import com.mikleg.popularmovies.utils.JsonUtils;
 import com.mikleg.popularmovies.utils.NetworkUtils;
@@ -38,6 +35,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     private TextView mTitleTextView;
     private TextView mVotesTextView;
     private List<TextView> mVideoTextViews = new ArrayList<TextView>();
+    private List<TextView> mReviewTextViews = new ArrayList<TextView>();
     private ImageView imageView;
     private String[] mData ;
     private static final int LOADER_ID = 11;
@@ -57,25 +55,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-       // ImageView imageView = findViewById(R.id.image_iv);
-      //  mDescriptionTextView = (TextView) findViewById(R.id.description_tv);
-
         Intent intent = getIntent();
         if (intent == null) {
             closeOnError();
         }
-        //TODO check id:
-        //mRecyclerView = (RecyclerView) findViewById(R.id.rvVideos);
-        //LinearLayoutManager manager = new LinearLayoutManager(this);
-        //mRecyclerView.setLayoutManager(manager);
-        //Log.d(TAG, "start_2");
-        //mAdapter = new VideosAdapter(this);
-        //mAdapter.setClickListener(this);
-        //mRecyclerView.setAdapter(mAdapter);
 
         Gson gson = new Gson();
         Movie movieData = gson.fromJson(getIntent().getStringExtra("jsonText"), Movie.class);
-       // Video video = gson.fromJson(getIntent().getStringExtra("jsonText"), Movie.class);
 
         LoaderManager.LoaderCallbacks<String[]> callback = DetailActivity.this;
         final Bundle bundleForLoader = null;
@@ -84,11 +70,17 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         populateUI(movieData);
         for (Integer i =0; i < 6; i++){
             String name = "videos_tv" + i.toString();
+            String name2 = "reviews_tv" + i.toString();
             int id = getResources().getIdentifier(name, "id", getPackageName());
+            int id2 = getResources().getIdentifier(name2, "id", getPackageName());
             TextView textView = (TextView) findViewById(id);
+            TextView textView2 = (TextView) findViewById(id2);
             textView.setVisibility(View.INVISIBLE);
+            textView2.setVisibility(View.INVISIBLE);
             mVideoTextViews.add(textView);
+            mReviewTextViews.add(textView2);
         }
+
 
 
     }
@@ -181,8 +173,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
                     }
                     i++;
                 }
-                // for (int k=0; k < result.size(); k++ )
-                //  System.out.println("Debug result=" + result.get(k));
 
                 String[] debug = result.toArray(new String[result.size()]);
                 return result.toArray(new String[result.size()]);
@@ -202,7 +192,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         //   int debug = 1;
         mData = data ;
         System.out.println("debug onLoadFinished");
-        addVideos();
+        addVideosAndReviews();
 
     }
 
@@ -210,13 +200,19 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(Loader<String[]> loader) {
     }
 
-    private void addVideos(){
-        Integer videosTotal =  Integer.parseInt(mData[mData.length-1]);
+    private void addVideosAndReviews(){
+        Integer videosTotal = Math.min(Integer.parseInt(mData[mData.length-1]), 6);
         Gson gson = new Gson();
-        for (Integer i = 0; i < videosTotal && i < 6; i++){
+        for (Integer i = 0; i < videosTotal; i++){
             Video video = gson.fromJson(mData[i], Video.class);
             mVideoTextViews.get(i).append(video.getName().substring(0, Math.min(video.getName().length(), 60)));
             mVideoTextViews.get(i).setVisibility(View.VISIBLE);
+        }
+
+        for (Integer i = videosTotal; i < mData.length -1 && i < 6 + videosTotal; i++){
+            Review review = gson.fromJson(mData[i], Review.class);
+            mReviewTextViews.get(i - videosTotal).append(review.getContent());
+            mReviewTextViews.get(i- videosTotal).setVisibility(View.VISIBLE);
         }
 
 
